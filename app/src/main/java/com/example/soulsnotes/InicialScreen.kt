@@ -125,7 +125,7 @@ fun InicialScreen(navController: NavController) {
                 border = BorderStroke(2.dp, Color.White),
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .offset(y = 250.dp)
+                    .offset(y = buttomOffsetY)
                     .padding(bottom = 32.dp)
                     .height(64.dp)
                     .fillMaxWidth(0.6f)
