@@ -33,7 +33,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
@@ -84,7 +83,7 @@ fun InicialScreen(navController: NavController) {
     )
 
     LaunchedEffect(Unit) {
-        delay(1000)
+        delay(10)
         animationStarted = true
         buttonVisible = true
     }
