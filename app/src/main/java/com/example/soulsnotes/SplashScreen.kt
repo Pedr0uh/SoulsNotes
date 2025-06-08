@@ -1,5 +1,7 @@
 package com.example.soulsnotes
 
+import android.media.MediaPlayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.estimateAnimationDurationMillis
@@ -38,6 +40,15 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(NavController: NavHostController){
+
+    val context = LocalContext.current
+    val mediaPlayer = remember {
+        MediaPlayer.create(context,R.raw.snd_break1_c)
+    }
+
+    val mediaPlayer2 = remember {
+        MediaPlayer.create(context,R.raw.snd_arrow)
+    }
 
     //variavel para animação do coracao inteiro
     val offsetX = remember { Animatable(0f) }
@@ -89,6 +100,8 @@ fun SplashScreen(NavController: NavHostController){
         //troca para o coracao na metade
         showFullHeart = false
 
+        mediaPlayer.start()
+
         //programação para para a animação das duas metades para fazer uma pequena rachadura
         splitOffset.animateTo(
             targetValue = 1f,
@@ -103,16 +116,21 @@ fun SplashScreen(NavController: NavHostController){
             animationSpec = tween(durationMillis = 1000)
         )
 
+        mediaPlayer2.start()
+
         //programação para a animação crescer de zero ate o tamanho normal
         scaleLogo.animateTo(
             targetValue = 1f,
-            animationSpec = tween(durationMillis = 1200)
+            animationSpec = tween(durationMillis = 500)
         )
 
         delay(2000)
         NavController.navigate("inicial") {
             popUpTo("splash") {inclusive = true}
         }
+
+        mediaPlayer.release()
+        mediaPlayer2.release()
 
     }
 
