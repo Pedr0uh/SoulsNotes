@@ -1,5 +1,12 @@
 package com.example.soulsnotes
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.font.Font
@@ -43,6 +50,7 @@ import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
+import androidx.navigation.NavHostController
 
 val undertaleFont = FontFamily(
     Font(R.font.dtm_mono, FontWeight.Normal)
@@ -50,7 +58,7 @@ val undertaleFont = FontFamily(
 
 @OptIn(UnstableApi::class)
 @Composable
-fun InicialScreen(navController: NavController) {
+fun InicialScreen(navController: NavHostController) {
 
     val context = LocalContext.current
 
@@ -63,6 +71,31 @@ fun InicialScreen(navController: NavController) {
             play()
             volume = 1f
             repeatMode = Player.REPEAT_MODE_ALL
+        }
+    }
+
+    val lifecycleOwner = LocalLifecycleOwner.current //variavel que armazena o ciclo/condicao da tela atual
+
+    val currentPlayer by rememberUpdatedState(newValue = exoPlayer) // variavel que garante que iremos usar o player atual
+
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event -> //observador que retorna mudança de ciclo da tela
+            when (event) {
+                Lifecycle.Event.ON_PAUSE -> {
+                    currentPlayer.pause() //se app pausado/minimizado, pausa o som do video
+                }
+                Lifecycle.Event.ON_RESUME -> {
+                    currentPlayer.play() //quando voltar toca o som denovo
+                }
+                else -> { }
+            }
+        }
+
+        lifecycleOwner.lifecycle.addObserver(observer) //começa observar o ciclo de tela
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)//composable discartado (mudar de tela), para de observar
+            currentPlayer.release() //Libera o player da memória
         }
     }
 
@@ -118,7 +151,9 @@ fun InicialScreen(navController: NavController) {
 
         if (animationStarted) {
             Button(
-                onClick = { /**/ },
+                onClick = { navController.navigate("home"){
+                    popUpTo("inicial") {inclusive = true}
+                } },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Black
                 ),
@@ -136,9 +171,7 @@ fun InicialScreen(navController: NavController) {
                     fontFamily = undertaleFont,
                     fontSize = 30.sp
                 )
-
             }
         }
     }
-
 }

@@ -20,5 +20,12 @@ fun AppNavigation() {
         composable("inicial") {
             InicialScreen(navController)
         }
+        composable("home"){
+            HomeScreen(navController)
+        }
+        composable("undertaleSonds"){
+            UndertaleSondsScreen(navController)
+        }
+
     }
 }
