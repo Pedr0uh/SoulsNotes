@@ -1,34 +1,62 @@
 package com.example.soulsnotes
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AppNavigation() {
 
     val navController = rememberNavController()
 
-    NavHost(
+    AnimatedNavHost(
         navController = navController,
-        startDestination = "splash"
+        startDestination = "splash",
     ) {
-        composable("splash") {
+        composable(
+            route = "splash",
+            enterTransition = { EnterTransition.None },
+            exitTransition = { ExitTransition.None }
+        ) {
             SplashScreen(navController)
         }
-        composable("inicial") {
+        composable(
+            route = "inicial",
+            enterTransition = {
+                val from = initialState.destination.route
+                if (from == "splash") EnterTransition.None else fadeIn()
+            },
+            exitTransition = { fadeOut() }
+        ) {
             InicialScreen(navController)
         }
-        composable("home") {
+        composable(
+            route = "home",
+            enterTransition = { fadeIn() },
+            exitTransition = { fadeOut() }
+        ) {
             HomeScreen(navController)
         }
-        composable("undertaleSonds") {
+        composable(
+            route = "undertaleSonds",
+            enterTransition = { fadeIn() },
+            exitTransition = { fadeOut() }
+        ) {
             UndertaleSondsScreen(navController)
         }
-        composable("deltaruneSonds") {
+        composable(
+            route = "deltaruneSonds",
+            enterTransition = { fadeIn() },
+            exitTransition = { fadeOut() }
+        ) {
             DeltaruneSondsScreen(navController)
         }
-
     }
 }
