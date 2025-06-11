@@ -181,10 +181,10 @@ fun DeltaruneSondsScreen(NavController: NavHostController) {
 
             Text(
                 text = musicList[currentTrackIndex].name,
-                color = Color.Black,
+                color = Color.White,
                 modifier = Modifier.padding(16.dp),
                 fontFamily = undertaleFont,
-                fontSize = 18.sp,
+                fontSize = 20.sp,
                 textAlign = TextAlign.Center
             )
 
