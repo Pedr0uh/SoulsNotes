@@ -2,8 +2,8 @@ package com.example.soulsnotes
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun AppNavigation() {
@@ -20,11 +20,14 @@ fun AppNavigation() {
         composable("inicial") {
             InicialScreen(navController)
         }
-        composable("home"){
+        composable("home") {
             HomeScreen(navController)
         }
-        composable("undertaleSonds"){
+        composable("undertaleSonds") {
             UndertaleSondsScreen(navController)
+        }
+        composable("deltaruneSonds") {
+            DeltaruneSondsScreen(navController)
         }
 
     }

@@ -19,43 +19,48 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.media3.common.MediaItem
-import androidx.media3.common.util.UnstableApi
-import androidx.media3.datasource.RawResourceDataSource
-import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.ui.PlayerView
-import androidx.media3.common.Player
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.datasource.RawResourceDataSource
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.AspectRatioFrameLayout
+import androidx.media3.ui.PlayerView
+import androidx.navigation.NavHostController
 
 
 @OptIn(UnstableApi::class)
 @Composable
-fun HomeScreen(NavController: NavHostController){
+fun HomeScreen(NavController: NavHostController) {
 
-    val context = LocalContext.current //variavel que armazena o contexto da aplicação (obrigatorio para player)
+    val context =
+        LocalContext.current //variavel que armazena o contexto da aplicação (obrigatorio para player)
 
     val mediaPlayer1 = remember {
-        MediaPlayer.create(context,R.raw.menu_undertale)
+        MediaPlayer.create(context, R.raw.menu_undertale)
     }
 
     //variavel para criação do player
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
-            val videoUri = RawResourceDataSource.buildRawResourceUri(R.raw.home_video) //armazena o video
+            val videoUri =
+                RawResourceDataSource.buildRawResourceUri(R.raw.home_video) //armazena o video
             setMediaItem(MediaItem.fromUri(videoUri)) //define o video que irá tocar
             prepare() //prepara o player
             playWhenReady = true //toca o video quando estiver preparado
@@ -73,7 +78,7 @@ fun HomeScreen(NavController: NavHostController){
             when (event) {
                 Lifecycle.Event.ON_PAUSE -> currentPlayer.pause()
                 Lifecycle.Event.ON_RESUME -> currentPlayer.play()
-                else -> { }
+                else -> {}
             }
         }
 
@@ -117,11 +122,12 @@ fun HomeScreen(NavController: NavHostController){
         }
     }
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .offset(y = (-100.dp)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
 
         Text(
             text = "Escolha qual deseja o ouvir:",
@@ -142,7 +148,7 @@ fun HomeScreen(NavController: NavHostController){
                 containerColor = Color.LightGray
             ),
             shape = RoundedCornerShape(12.dp),
-        ){
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.undertale_titulo),
                 contentDescription = "Botão Undertale Sons"
@@ -152,7 +158,7 @@ fun HomeScreen(NavController: NavHostController){
         Spacer(modifier = Modifier.size(3.dp))
 
         Button(
-            onClick = { },
+            onClick = { NavController.navigate("deltaruneSonds") },
             modifier = Modifier
                 .padding(8.dp)
                 .size(width = 220.dp, height = 65.dp),
@@ -160,7 +166,7 @@ fun HomeScreen(NavController: NavHostController){
                 containerColor = Color.Black
             ),
             shape = RoundedCornerShape(12.dp),
-        ){
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.deltarune_titulo),
                 contentDescription = "Botão Deltarune Sons"

@@ -1,7 +1,6 @@
 package com.example.soulsnotes
 
 import android.media.MediaPlayer
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.repeatable
@@ -26,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
@@ -35,15 +35,15 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(NavController: NavHostController){
+fun SplashScreen(NavController: NavHostController) {
 
     val context = LocalContext.current
     val mediaPlayer = remember {
-        MediaPlayer.create(context,R.raw.snd_break1_c)
+        MediaPlayer.create(context, R.raw.snd_break1_c)
     }
 
     val mediaPlayer2 = remember {
-        MediaPlayer.create(context,R.raw.snd_arrow)
+        MediaPlayer.create(context, R.raw.snd_arrow)
     }
 
     //variavel para animação do coracao inteiro
@@ -122,7 +122,7 @@ fun SplashScreen(NavController: NavHostController){
 
         delay(1000)
         NavController.navigate("inicial") {
-            popUpTo("splash") {inclusive = true}
+            popUpTo("splash") { inclusive = true }
         }
 
         mediaPlayer.release()
@@ -135,7 +135,7 @@ fun SplashScreen(NavController: NavHostController){
             .fillMaxSize()
             .background(Color.Black),
         contentAlignment = Alignment.Center
-    ){
+    ) {
         Image(
             painter = painterResource(R.drawable.titulo),
             contentDescription = "Titulo: SoulsNotes",
@@ -148,7 +148,7 @@ fun SplashScreen(NavController: NavHostController){
                 )
         )
 
-        if(showFullHeart) {
+        if (showFullHeart) {
             Image(
                 painter = painterResource(R.drawable.coracaosplash),
                 contentDescription = "Coração Delta",
@@ -160,7 +160,7 @@ fun SplashScreen(NavController: NavHostController){
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
-            ){
+            ) {
                 Image(
                     painter = painterResource(R.drawable.coracaosplashdireito),
                     contentDescription = "metade direita do coração",
@@ -188,6 +188,6 @@ fun SplashScreen(NavController: NavHostController){
 fun SplashPreview(
     showSystemUi: Boolean = true,
     showBackground: Boolean = true
-){
+) {
     SplashScreen(NavController = rememberNavController())
 }

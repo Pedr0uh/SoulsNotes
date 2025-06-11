@@ -1,21 +1,9 @@
 package com.example.soulsnotes
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import androidx.annotation.OptIn
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -29,10 +17,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,7 +30,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
@@ -48,9 +46,8 @@ import androidx.media3.datasource.RawResourceDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
-import androidx.navigation.NavController
-import kotlinx.coroutines.delay
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.delay
 
 val undertaleFont = FontFamily(
     Font(R.font.dtm_mono, FontWeight.Normal)
@@ -64,7 +61,8 @@ fun InicialScreen(navController: NavHostController) {
 
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
-            val mediaItem = MediaItem.fromUri(RawResourceDataSource.buildRawResourceUri(R.raw.queen_dance))
+            val mediaItem =
+                MediaItem.fromUri(RawResourceDataSource.buildRawResourceUri(R.raw.queen_dance))
             setMediaItem(mediaItem)
             prepare()
             playWhenReady = true
@@ -74,22 +72,26 @@ fun InicialScreen(navController: NavHostController) {
         }
     }
 
-    val lifecycleOwner = LocalLifecycleOwner.current //variavel que armazena o ciclo/condicao da tela atual
+    val lifecycleOwner =
+        LocalLifecycleOwner.current //variavel que armazena o ciclo/condicao da tela atual
 
     val currentPlayer by rememberUpdatedState(newValue = exoPlayer) // variavel que garante que iremos usar o player atual
 
     DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event -> //observador que retorna mudança de ciclo da tela
-            when (event) {
-                Lifecycle.Event.ON_PAUSE -> {
-                    currentPlayer.pause() //se app pausado/minimizado, pausa o som do video
+        val observer =
+            LifecycleEventObserver { _, event -> //observador que retorna mudança de ciclo da tela
+                when (event) {
+                    Lifecycle.Event.ON_PAUSE -> {
+                        currentPlayer.pause() //se app pausado/minimizado, pausa o som do video
+                    }
+
+                    Lifecycle.Event.ON_RESUME -> {
+                        currentPlayer.play() //quando voltar toca o som denovo
+                    }
+
+                    else -> {}
                 }
-                Lifecycle.Event.ON_RESUME -> {
-                    currentPlayer.play() //quando voltar toca o som denovo
-                }
-                else -> { }
             }
-        }
 
         lifecycleOwner.lifecycle.addObserver(observer) //começa observar o ciclo de tela
 
@@ -102,7 +104,7 @@ fun InicialScreen(navController: NavHostController) {
     var animationStarted by remember { mutableStateOf(false) }
 
     val titleOffset by animateDpAsState(
-        targetValue = if(animationStarted) 0.dp else (LocalConfiguration.current.screenHeightDp.dp / 2 - 24.dp),
+        targetValue = if (animationStarted) 0.dp else (LocalConfiguration.current.screenHeightDp.dp / 2 - 24.dp),
         animationSpec = tween(durationMillis = 1000),
         label = "titleOffSet"
     )
@@ -110,7 +112,7 @@ fun InicialScreen(navController: NavHostController) {
     var buttonVisible by remember { mutableStateOf(false) }
 
     val buttomOffsetY by animateDpAsState(
-        targetValue = if(buttonVisible) 250.dp else 800.dp,
+        targetValue = if (buttonVisible) 250.dp else 800.dp,
         animationSpec = tween(durationMillis = 1000),
         label = "buttonOffsetY"
     )
@@ -151,9 +153,11 @@ fun InicialScreen(navController: NavHostController) {
 
         if (animationStarted) {
             Button(
-                onClick = { navController.navigate("home"){
-                    popUpTo("inicial") {inclusive = true}
-                } },
+                onClick = {
+                    navController.navigate("home") {
+                        popUpTo("inicial") { inclusive = true }
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Black
                 ),
