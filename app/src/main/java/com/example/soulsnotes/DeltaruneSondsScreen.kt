@@ -89,7 +89,7 @@ fun DeltaruneSondsScreen(NavController: NavHostController) {
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
             val videoUri =
-                RawResourceDataSource.buildRawResourceUri(R.raw.cyber_world_video) //armazena o video
+                RawResourceDataSource.buildRawResourceUri(R.raw.cyber_world_vide) //armazena o video
             setMediaItem(MediaItem.fromUri(videoUri)) //define o video que irá tocar
             prepare() //prepara o player
             playWhenReady = true //toca o video quando estiver preparado
