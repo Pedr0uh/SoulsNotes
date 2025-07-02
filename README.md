@@ -18,7 +18,7 @@ O app conta com:
 - 🕹️ Design temático com botões personalizados
 - 🧘 Sensação de conforto e nostalgia a cada interação
 
-Tudo isso foi desenvolvido sem fins lucrativos, apenas como **um projeto de aprendizado** e **expressão de carinho** por essas obras incríveis.
+> **Tudo isso foi desenvolvido sem fins lucrativos, apenas como um projeto de aprendizado e expressão de carinho por essas obras incríveis.**
 
 ## 🧪 Tecnologias utilizadas
 
