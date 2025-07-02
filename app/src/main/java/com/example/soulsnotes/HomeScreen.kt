@@ -124,7 +124,7 @@ fun HomeScreen(NavController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .offset(y = (-100.dp)),
+            .offset(y = (-185.dp)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

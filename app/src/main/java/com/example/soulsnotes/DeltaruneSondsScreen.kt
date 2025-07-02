@@ -64,7 +64,7 @@ fun DeltaruneSondsScreen(NavController: NavHostController) {
             RawResourceDataSource.buildRawResourceUri(R.raw.my_castle_town)
         ),
         MusicItem(
-            "TobyFox - A Cyber World? (Orquestral Cover)",
+            "TobyFox - A Cyber World?",
             RawResourceDataSource.buildRawResourceUri(R.raw.a_cyber_world)
         ),
         MusicItem(
@@ -157,7 +157,7 @@ fun DeltaruneSondsScreen(NavController: NavHostController) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(90.dp)
+                .height(100.dp)
                 .offset(y = 0.dp)
                 .background(Color.Black)
         ) {
@@ -184,7 +184,7 @@ fun DeltaruneSondsScreen(NavController: NavHostController) {
                 color = Color.White,
                 modifier = Modifier.padding(16.dp),
                 fontFamily = undertaleFont,
-                fontSize = 20.sp,
+                fontSize = 30.sp,
                 textAlign = TextAlign.Center
             )
 
@@ -231,7 +231,7 @@ fun DeltaruneSondsScreen(NavController: NavHostController) {
                     Image(
                         painter = painterResource(R.drawable.skip_to_anterior),
                         contentDescription = "anterior",
-                        modifier = Modifier.size(48.dp)
+                        modifier = Modifier.size(60.dp)
                     )
                 }
 
@@ -250,7 +250,7 @@ fun DeltaruneSondsScreen(NavController: NavHostController) {
                     Image(
                         painter = painterResource(id = iconRes),
                         contentDescription = "Play/Pause",
-                        modifier = Modifier.size(64.dp)
+                        modifier = Modifier.size(74.dp)
                     )
                 }
 
@@ -269,7 +269,7 @@ fun DeltaruneSondsScreen(NavController: NavHostController) {
                     Image(
                         painter = painterResource(id = R.drawable.skip_to_start),
                         contentDescription = "proxima",
-                        modifier = Modifier.size(48.dp)
+                        modifier = Modifier.size(60.dp)
                     )
                 }
             }
