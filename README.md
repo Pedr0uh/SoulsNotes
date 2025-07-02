@@ -1,4 +1,4 @@
-# 🎵 SoulsNotes 🎮🖤
+# 🎵 SoulsNotes 🎮🤍
 
 > Um projeto feito com carinho, som e nostalgia.
 
