@@ -46,7 +46,7 @@ O app conta com:
 
 ## 🎶 Músicas utilizadas
 
-| Nome da música               | Jogo           | Autor              |
+| Nome da música              | Jogo           | Autor              |
 |-----------------------------|----------------|--------------------|
 | Undertale                   | Undertale      | Toby Fox           |
 | Waterfall                   | Undertale      | Toby Fox           |
